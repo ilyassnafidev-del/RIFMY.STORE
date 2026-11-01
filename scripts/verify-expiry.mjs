@@ -1,0 +1,4 @@
+import {createHmac} from 'node:crypto';
+const origin='http://127.0.0.1:5173';const event={id:'evt_local_expiry_fixture',type:'checkout.session.expired',livemode:true,data:{object:{id:'cs_test_expiry_fixture',metadata:{order_id:'RIF-EXPIRY-FIXTURE'}}}};const raw=JSON.stringify(event);const t=Math.floor(Date.now()/1000);const sig=createHmac('sha256','whsec_local_fixture_only').update(t+'.'+raw).digest('hex');
+for(let i=0;i<2;i++){const r=await fetch(origin+'/api/webhook',{method:'POST',headers:{'Content-Type':'application/json','stripe-signature':'t='+t+',v1='+sig},body:raw});console.log('Signed expiry event',i+1,r.status,await r.text());if(r.status!==200)process.exitCode=1}
+const bad=await fetch(origin+'/api/webhook',{method:'POST',headers:{'stripe-signature':'t='+t+',v1='+'0'.repeat(64)},body:raw});console.log('Forged signature rejected',bad.status);if(bad.status!==400)process.exitCode=1;

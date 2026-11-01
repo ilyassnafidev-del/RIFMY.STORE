@@ -1,0 +1,2 @@
+INSERT OR REPLACE INTO inventory(id,available) VALUES('fixture-stock',7);
+INSERT OR REPLACE INTO orders(id,idempotency_key,customer,items,subtotal,discount,delivery,total,status,mode,session,created) VALUES('RIF-EXPIRY-FIXTURE','expiry-fixture-key','{"name":"Fixture","email":"fixture@example.invalid"}','[{"id":"fixture-stock","quantity":3,"price":8000}]',24000,0,2500,26500,'pending','live','cs_test_expiry_fixture',1);

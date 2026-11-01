@@ -1,2 +1,5 @@
 import Store from '../store';
+import {products} from '../../lib/catalog';
+import type {Metadata} from 'next';
+export async function generateMetadata({params}:{params:Promise<{slug:string[]}>}):Promise<Metadata>{const {slug}=await params;const path='/'+slug.join('/');const p=products.find(p=>path==='/product/'+p.id);const titles:Record<string,string>={'/shop':'The signature collection','/about':'Our story','/craft':'Our craft','/faq':'Frequently asked questions','/contact':'Contact','/shipping':'Shipping information','/returns':'Returns policy','/privacy':'Privacy policy','/terms':'Terms & conditions','/cart':'Your bag','/checkout':'Checkout','/admin':'Cooperative access'};return {title:p?.name||titles[path]||'RIFMY',description:p?.description,alternates:{canonical:path},robots:['/cart','/checkout','/admin','/order'].includes(path)?{index:false,follow:false}:undefined,openGraph:p?{title:p.name+' | RIFMY',description:p.description,images:[p.image]}:undefined}}
 export default async function Page({params}:{params:Promise<{slug:string[]}>}){const {slug}=await params;return <Store path={'/'+slug.join('/')}/>}

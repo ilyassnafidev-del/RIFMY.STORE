@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://rifmy-artisan-candles-ilyas.sevenproject244.chatgpt.site'),
   title: {default:'RIFMY — Artisan Candle Cooperative',template:'%s | RIFMY'},
   description: "Six signature scents. Handmade in Morocco. Discover RIFMY artisan candles for your home and thoughtful gifts.",
   icons: {
