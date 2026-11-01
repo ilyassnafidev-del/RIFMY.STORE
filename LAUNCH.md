@@ -21,10 +21,9 @@ Invite partners through admin using an email-bound code of at least 12 character
 
 ## Assets and business facts
 Business source: https://www.canva.com/design/DAHZgBFIPEU/b7oe7f7G8gx7sjvCbDnu5Q/edit
-Six descriptions, 80 MAD candle price, 25 MAD delivery and 20% partner discount come from the presentation. No invented testimonials or specifications. The original emblem comes from the authorized Canva preview. Eighteen high-resolution product recreations provide a front view, three-quarter view and close-up for each of the six scents. Two new editorial scenes illustrate atmosphere and craft. All are conceptual AI imagery, labelled accordingly, and require RIFMY approval before commercial use. The interactive candle is a conceptual Three.js model.
+Six descriptions, 80 MAD candle price, 25 MAD delivery and 20% partner discount come from the presentation. No invented testimonials or specifications. The original emblem comes from the authorized Canva preview. Eighteen high-resolution product recreations provide a front view, left-side profile and true overhead view for each of the six scents. Two new editorial scenes illustrate atmosphere and craft. All are conceptual AI imagery, labelled accordingly, and require RIFMY approval before commercial use. The homepage switches between optimized still images; it loads no 3D renderer.
 
 Shipping, returns, privacy, terms and contact pages clearly mark missing business details. They are placeholders requiring approval, not complete legal policies.
 
-## 3D upgrade
-Three.js is loaded only when the homepage scene approaches the viewport. Pixel density and geometry are reduced on mobile; rendering stops while offscreen, hidden or paused. Reduced-motion and constrained devices receive a still-image fallback and an explicit 3D opt-in. Motion animates section reveals; checkout does not load the 3D renderer or reveal animation library. Product galleries and administrator image fields support all three views.
-
+## Homepage and product views
+The homepage uses a lightweight image selector for the six fragrances, with responsive 640px/960px images and the full-resolution source. No WebGL canvas, Three.js dependency, continuous rendering or automatic slideshow is used. Galleries have separate Front, Left side and Top view images. All generated imagery remains conceptual and requires brand approval.
