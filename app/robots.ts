@@ -1,0 +1,1 @@
+export default function robots(){return {rules:{userAgent:'*',allow:'/',disallow:['/admin','/checkout','/cart','/api','/order']},sitemap:'https://rifmy-artisan-candles-ilyas.sevenproject244.chatgpt.site/sitemap.xml'}}

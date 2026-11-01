@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /checkout
+Disallow: /cart
+Disallow: /order
+Sitemap: https://rifmy-artisan-candles-ilyas.sevenproject244.chatgpt.site/sitemap.xml
