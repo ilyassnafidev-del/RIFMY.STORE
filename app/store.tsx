@@ -11,7 +11,7 @@ import {useEffect,useState} from 'react';
 import {ArrowUpRight,ArrowRight,ShoppingBag,Menu,X,Plus,Minus,Check,ChevronDown,Leaf,Flame,Heart,Lock,Search,Trash2} from 'lucide-react';
 import {products as initial,Product,money,calculate} from '../lib/catalog';
 type Line={id:string;quantity:number};
-const links=[['The collection','/shop'],['Our story','/about'],['Our craft','/craft']];
+const links=[['The collection','/shop'],['Our story','/about'],['Our craft','/craft'],['Contact','/contact']];
 const legal:Record<string,[string,string]>={
  '/shipping':['Shipping information','Delivery is 25 MAD per order. Delivery areas, carriers, processing times and delivery estimates are awaiting confirmation by RIFMY. These details must be approved before live orders open.'],
  '/returns':['Returns & exchanges','Policy awaiting approval. Return windows, eligibility, return address, damaged-item handling and refund terms have not yet been supplied by RIFMY. Live checkout remains unavailable until these terms are configured.'],
@@ -35,7 +35,7 @@ export default function Store({path}:{path:string}){
  async function applyCoupon(){setError('');try{const d=await api('coupon',{code:coupon,email:customer.email,items:cart});setDiscount(d.percent);setToast('Eligible partner discount applied')}catch(e:any){setDiscount(0);setError(e.message)}}
  async function checkout(e:React.FormEvent){e.preventDefault();setBusy(true);setError('');try{const fingerprint=JSON.stringify({cart,customer,coupon});let previous:any=null;try{previous=JSON.parse(sessionStorage.getItem('rifmy-checkout-key')||'null')}catch{}const key=previous?.fingerprint===fingerprint?previous.key:crypto.randomUUID();sessionStorage.setItem('rifmy-checkout-key',JSON.stringify({key,fingerprint}));const d=await api('checkout',{items:cart,customer,code:coupon,idempotencyKey:key});if(d.url){location.href=d.url;return}setResult(d);sessionStorage.removeItem('rifmy-checkout-key')}catch(e:any){setError(e.message)}finally{setBusy(false)}}
  return <><div className="announcement">HAND-POURED IN MOROCCO <span>•</span> SIX SCENTS. A THOUSAND LITTLE MOMENTS.</div><header><a href="/" className="wordmark" aria-label="RIFMY home"><img src="/brand/emblem.webp" alt=""/><div>RIFMY<small>ARTISAN CANDLE COOPERATIVE</small></div></a><nav>{links.map(([n,u])=><a className={path===u?'active':''} key={u} href={u}>{n}</a>)}</nav><div className="nav-actions"><a className="search-link" href="/shop?search=1" aria-label="Search collection"><Search size={19}/></a><button className="bag-button" onClick={()=>setBag(true)}><ShoppingBag size={18}/><span>Bag ({count})</span></button><button className="mobile-menu" aria-label="Open navigation" onClick={()=>setMenu(!menu)}>{menu?<X/>:<Menu/>}</button></div></header>
- {menu&&<nav className="mobile-nav">{links.map(([n,u])=><a key={u} href={u}>{n}<ArrowUpRight size={17}/></a>)}<a href="/contact">Contact</a></nav>}
+ {menu&&<nav className="mobile-nav">{links.map(([n,u])=><a key={u} href={u}>{n}<ArrowUpRight size={17}/></a>)}</nav>}
  <main><MotionDesign path={path}/>
  {isHome&&<><CandleStage/>
  <div className="values-strip"><span><Flame/> Hand-poured in Morocco</span><span><Leaf/> Thoughtfully blended</span><span><Heart/> A cooperative at heart</span></div>
