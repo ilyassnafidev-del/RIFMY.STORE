@@ -1,0 +1,2 @@
+import {money} from '../lib/catalog';
+export default function ProductPrice({price,compareAtPrice=10000}:{price:number;compareAtPrice?:number}){const percentage=Math.round((1-price/compareAtPrice)*100);return <div className="product-pricing"><div><strong>{money(price)}</strong>{compareAtPrice>price&&<><del aria-label={'Proposed comparison price '+money(compareAtPrice)}>{money(compareAtPrice)}</del><span className="sale-badge">{percentage}% OFF*</span></>}</div>{compareAtPrice>price&&<small>*Vs proposed compare-at price. Business approval pending.</small>}</div>}

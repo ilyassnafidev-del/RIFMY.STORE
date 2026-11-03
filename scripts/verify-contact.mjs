@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {contactConfiguration,sendContact} from '../lib/contact-service.ts';
+const env={RESEND_API_KEY:'local-fixture-key',CONTACT_FROM_EMAIL:'verified@example.invalid',CONTACT_FORM_SECRET:'local-fixture-form-secret'};
+const actualNow=Date.now;const now=actualNow();Date.now=()=>now-3000;const configuration=await contactConfiguration(env);Date.now=actualNow;
+assert.equal(configuration.configured,true);let calls=0,sent;
+const transport=async(url,options)=>{calls++;sent={url,...options,body:JSON.parse(options.body)};return Response.json({id:'local-provider-fixture'})};
+const rate=async(key,max)=>{assert.ok(key.startsWith('contact-email:'));assert.equal(max,3)};
+const body={name:'Contact Fixture',email:'fixture@example.invalid',subject:'A candle question',message:'This is a local message fixture for a configured contact form.',website:'',token:configuration.token};
+assert.deepEqual(await sendContact(body,env,rate,transport),{accepted:true});assert.deepEqual(sent.body.to,['support@rifmy.store']);assert.equal(sent.body.reply_to,body.email);const firstKey=sent.headers['Idempotency-Key'];await sendContact(body,env,rate,transport);assert.equal(sent.headers['Idempotency-Key'],firstKey);
+await assert.rejects(()=>sendContact({...body,website:'spam.example'},env,rate,transport));await assert.rejects(()=>sendContact({...body,token:body.token.slice(0,-1)+(body.token.endsWith('0')?'1':'0')},env,rate,transport));await assert.rejects(()=>sendContact({...body,email:'invalid'},env,rate,transport));await assert.rejects(()=>sendContact(body,{},rate,transport),e=>e.status===503);await assert.rejects(()=>sendContact(body,env,rate,async()=>Response.json({error:'provider'}, {status:500})),e=>e.status===502);Date.now=()=>now-7201000;const expired=await contactConfiguration(env);Date.now=actualNow;await assert.rejects(()=>sendContact({...body,token:expired.token},env,rate,transport));const fresh=await contactConfiguration(env);await assert.rejects(()=>sendContact({...body,token:fresh.token},env,rate,transport));assert.equal(calls,2);
+console.log('PASS: signed form token, recipient, validation, honeypot, expired/forged tokens, missing configuration, provider error and duplicate-send idempotency. No email was sent.');

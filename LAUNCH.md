@@ -27,3 +27,8 @@ Shipping, returns, privacy, terms and contact pages clearly mark missing busines
 
 ## Homepage and product views
 The homepage uses a lightweight image selector for the six fragrances, with responsive 640px/960px images and the full-resolution source. No WebGL canvas, Three.js dependency, continuous rendering or automatic slideshow is used. Galleries have separate Front, Left side and Top view images. All generated imagery remains conceptual and requires brand approval.
+
+## Active pricing and contact upgrade
+All six candles now sell at 79 MAD. The 100 MAD reference is a proposed compare-at value pending business approval, not a verified previous selling price. The 21% label is explicitly qualified. Approved email-bound partner codes apply a further 20% to the 79 MAD price (63.20 MAD per candle); delivery stays 25 MAD. Existing order snapshots are preserved. On first catalog access, a versioned marker updates old product-price overrides once while preserving other fields.
+The contact recipient is support@rifmy.store. Configure RESEND_API_KEY and a verified CONTACT_FROM_EMAIL (or BUSINESS_EMAIL); CONTACT_FORM_SECRET is optional. The contact form uses signed expiring tokens, a minimum fill time, honeypot, rate limits, validation and provider idempotency. No success is reported when sending is unconfigured or rejected. Maps uses the verified campus landmark at 33.4826756, -7.6443759 with no university-affiliation claim.
+Fonts are self-hosted with hashed filenames, page/admin bundles are split, process imagery is compressed and lazy-loaded, the map loads only near the viewport, and motion uses native observers with reduced-motion support. No WebGL renderer has been reintroduced.

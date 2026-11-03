@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./premium-pages.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rifmy-artisan-candles-ilyas.sevenproject244.chatgpt.site'),
@@ -18,6 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head><link rel="preload" href="/fonts/brand-1.d80df8ff.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/><link rel="preload" href="/fonts/brand-2.9fea608a.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/></head>
       <body className="antialiased">{children}</body>
     </html>
   );
